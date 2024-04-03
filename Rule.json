@@ -1,0 +1,811 @@
+[
+  {
+    "rulename": "ask-pet-budget",
+    "question": "Какой ежемесячный бюджет Вы готовы выделять на домашнего питомца?",
+    "priority": 3,
+    "value": [
+      "Менее 1000 рублей",
+      "1000-5000 рублей",
+      "5000-10000 рублей"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "pet", "value": ""},
+        {"name": "budget", "value": ""}
+      ]
+    },
+    "updateFact": {
+      "name": "budget",
+      "value": ""
+    }
+  },
+   {
+    "rulename": "ask-about-temperament",
+    "question": "Какой характер домашнего животного Вы бы предпочли? ",
+    "priority": 0,
+    "value": [
+      "Активный",
+      "Спокойный"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "pet", "value": ""},
+        {"name": "temperament", "value": ""}
+
+      ]
+    },
+    "updateFact": {
+      "name": "temperament",
+      "value": ""
+    }
+  },
+   {
+    "rulename": "ask-about-habitat-budget-less-1000",
+    "question": "Какая среда обитания предпочтительнее для вашего будущего питомца? ",
+    "priority": 2,
+    "value": [
+      "Аквариум",
+      "Клетка"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "budget", "value": "Менее 1000 рублей"},
+        {"name": "pet", "value": ""}
+      ]
+    },
+    "updateFact": {
+      "name": "habitat",
+      "value": ""
+    },
+     "appendedFacts": [
+      {
+        "conditionValue": "Аквариум",
+        "fact": {
+          "name": "temperament",
+          "value": "Спокойный"
+        }
+      }]
+  },
+     {
+    "rulename": "ask-about-habitat-budget-1000-5000",
+    "question": "Какая среда обитания предпочтительнее для вашего будущего питомца? ",
+    "priority": 2,
+    "value": [
+      "Дом или двор",
+      "Клетка",
+      "Террариум"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "pet", "value": ""},
+        {"name": "habitat", "value": ""},
+        {"name": "budget", "value": "1000-5000 рублей"}
+      ]
+    },
+    "updateFact": {
+      "name": "habitat",
+      "value": ""
+    },
+     "appendedFacts": [
+      {
+        "conditionValue": "Дом или двор",
+        "fact": {
+          "name": "temperament",
+          "value": "Активный"
+        }
+      },{
+        "conditionValue": "Террариум",
+        "fact": {
+          "name": "temperament",
+          "value": "Спокойный"
+        }
+      }
+     ]
+  },
+  {
+    "rulename": "ask-about-habitat-budget-5000-10000",
+    "question": "Какая среда обитания предпочтительнее для вашего будущего питомца? ",
+    "priority": 2,
+    "value": [
+      "Вольер",
+      "Террариум"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "pet", "value": ""},
+        {"name": "habitat", "value": ""},
+        {"name": "budget", "value": "5000-10000 рублей"}
+      ]
+    },
+    "updateFact": {
+      "name": "habitat",
+      "value": ""
+    },
+     "appendedFacts": [
+      {
+        "conditionValue": "Вольер",
+        "fact": {
+          "name": "temperament",
+          "value": "Активный"
+        }
+      },{
+        "conditionValue": "Террариум",
+        "fact": {
+          "name": "temperament",
+          "value": "Спокойный"
+        }
+      }
+     ]
+  },
+  {
+    "rulename": "ask-about-lifestyle",
+    "question": "Предпочитаете ли вы, чтобы ваш будущий питомец вел активный образ жизни во время дня или ночи? ",
+    "priority": 0,
+    "value": [
+      "Дневной образ жизни",
+      "Ночной образ жизни"
+    ],
+   "condition": {
+    "operation": "||",
+    "facts": [
+      {
+        "operation": "&",
+        "facts": [
+          {"name": "pet", "value": ""},
+          {"name": "budget", "value":"Менее 1000 рублей"},
+          {"name": "habitat", "value": "Клетка"},
+          {"name": "temperament", "value": "Активный"}
+        ]
+      },
+      {
+        "operation": "&",
+        "facts": [
+          {"name": "pet", "value": ""},
+          {"name": "budget", "value":"Менее 1000 рублей"},
+          {"name": "habitat", "value": "Клетка"},
+          {"name": "temperament", "value": "Спокойный"}
+        ]
+      },
+      {
+        "operation": "&",
+        "facts": [
+          {"name": "pet", "value": ""},
+          {"name": "budget", "value":"1000-5000 рублей"},
+          {"name": "habitat", "value": "Клетка"},
+          {"name": "temperament", "value": "Активный"}
+        ]
+      }
+    ]
+  },
+    "updateFact": {
+      "name": "lifestyle",
+      "value": ""}
+  },
+  {
+    "rulename": "ask-about-sociality",
+    "question": "Какой фактор для вас приоритетен при выборе питомца? ",
+    "priority": 0,
+    "value": [
+      "Необходимость в прогулках",
+      "Независимость"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "pet", "value": ""},
+        {"name": "budget", "value": "1000-5000 рублей"},
+        {"name": "habitat", "value": "Дом или двор"},
+        {"name": "temperament", "value": "Активный"}
+      ]
+    },
+    "updateFact": {
+      "name": "sociality", "value": ""}
+  },
+  {
+    "rulename": "ask-about-diet",
+    "question": "Ваш питомец должен быть травоядным животным или всеядным? ",
+    "priority": 0,
+    "value": [
+      "Травоядным",
+      "Всеядным"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "pet", "value": ""},
+        {"name": "budget", "value": "1000-5000 рублей"},
+        {"name": "habitat", "value": "Клетка"},
+        {"name": "temperament", "value": "Спокойный"}
+      ]
+    },
+    "updateFact": {
+      "name": "diet", "value": ""}
+  },
+  {
+    "rulename": "ask-about-care",
+    "question": "Важно ли для вас, чтобы уход за питомцем был без хлопот? ",
+    "priority": 0,
+    "value": [
+      "Да",
+      "Нет"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "pet", "value": ""},
+        {"name": "budget", "value": "Менее 1000 рублей"},
+        {"name": "habitat", "value": "Аквариум"},
+        {"name": "temperament", "value": "Спокойный"}
+      ]
+    },
+    "updateFact": {
+      "name": "care",
+      "value": ""
+    }
+  },
+  {
+    "rulename": "ask-about-adaptation",
+    "question": "Предпочитаемая адаптация к окружающей среде? ",
+    "priority": 0,
+    "value": [
+      "Низкая адаптация",
+      "Высокая адаптация"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "pet", "value": ""},
+        {"name": "budget", "value": "1000-5000 рублей"},
+        {"name": "habitat", "value": "Террариум"},
+        {"name": "temperament", "value": "Спокойный"}
+      ]
+    },
+    "updateFact": {
+      "name": "adaptation",
+      "value": ""
+    }
+  },
+    {
+    "rulename": "ask-about-aspect",
+    "question": "Какой аспект важнее для вашего питомца?",
+    "priority": 0,
+    "value": [
+      "Потребность в мобильности",
+      "Доступ к пище"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "pet", "value": ""},
+        {"name": "budget", "value": "5000-10000 рублей"},
+        {"name": "habitat", "value": "Вольер"},
+        {"name": "temperament", "value": "Активный"}
+      ]
+    },
+    "updateFact": {
+      "name": "aspect",
+      "value": ""
+    }
+  },
+    {
+    "rulename": "ask-about-limbs",
+    "question": "Как вы относитесь к количеству конечностей у животного: предпочитаете восемь конечностей или же их полное отсутствие?",
+    "priority": 0,
+    "value": [
+      "8 конечностей",
+      "Отсутствие конечностей"
+    ],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "pet", "value": ""},
+        {"name": "budget", "value": "5000-10000 рублей"},
+        {"name": "habitat", "value": "Террариум"},
+        {"name": "temperament", "value": "Спокойный"}
+      ]
+    },
+    "updateFact": {
+      "name": "limbs",
+      "value": ""
+    }
+  },
+  {
+    "rulename": "Snail",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "budget", "value": "Менее 1000 рублей"},
+        {"name": "temperament", "value": "Спокойный"},
+        {"name": "habitat", "value": "Аквариум"},
+        {"name": "care", "value": "Да"}
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: улитка, характер: спокойный, требования к уходу: низкие."
+    }
+  },
+  {
+    "rulename": "Fish",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "budget", "value": "Менее 1000 рублей"},
+        {"name": "temperament", "value": "Спокойный"},
+        {"name": "habitat", "value": "Аквариум"},
+        {"name": "care", "value": "Нет"}
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: рыбка, характер: спокойный, требования к уходу: высокие."
+    }
+  },
+  {
+    "rulename": "Rabbit",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "budget", "value": "Менее 1000 рублей"},
+        {"name": "temperament", "value": "Спокойный"},
+        {"name": "habitat", "value": "Клетка"},
+        {"name": "lifestyle", "value": "Дневной образ жизни"}
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: кролик, характер: спокойный, вес: больше 1 кг."
+    }
+  },
+  {
+    "rulename": "Hamster",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {"name": "budget", "value": "Менее 1000 рублей"},
+        {"name": "temperament", "value": "Спокойный"},
+        {"name": "habitat", "value": "Клетка"},
+        {"name": "lifestyle", "value": "Ночной образ жизни"}
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: хомяк, характер: спокойный, вес: меньше 1 кг."
+    }
+  },
+  {
+    "rulename": "Canary",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "Менее 1000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Активный"
+        },
+        {
+          "name": "habitat",
+          "value": "Клетка"
+        },
+        {
+          "name": "lifestyle",
+          "value": "Дневной образ жизни"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: канарейка, характер: спокойный, высокий уровень звуков."
+    }
+  },
+  {
+    "rulename": "Rat",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "Менее 1000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Активный"
+        },
+        {
+          "name": "habitat",
+          "value": "Клетка"
+        },
+        {
+          "name": "lifestyle",
+          "value": "Ночной образ жизни"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: крыса, характер: спокойный, низкий уровень звуков."
+    }
+  },
+  {
+    "rulename": "Cat",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "1000-5000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Активный"
+        },
+        {
+          "name": "habitat",
+          "value": "Дом или двор"
+        },
+        {
+          "name": "sociality",
+          "value": "Независимость"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: кот, характер: активный, время с питомцем от 1 до 2 часов."
+    }
+  },
+  {
+    "rulename": "Dog",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "1000-5000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Активный"
+        },
+        {
+          "name": "habitat",
+          "value": "Дом или двор"
+        },
+        {
+          "name": "sociality",
+          "value": "Необходимость в прогулках"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: собака, характер: активный, время с питомцем больше 2 часов."
+    }
+  },
+  {
+    "rulename": "Parrot",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "1000-5000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Активный"
+        },
+        {
+          "name": "habitat",
+          "value": "Клетка"
+        },
+        {
+          "name": "lifestyle",
+          "value": "Дневной образ жизни"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: попугай, характер: активный, высокий уровень звуков."
+    }
+  },
+  {
+    "rulename": "Chinchilla",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "1000-5000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Активный"
+        },
+        {
+          "name": "habitat",
+          "value": "Клетка"
+        },
+        {
+          "name": "lifestyle",
+          "value": "Ночной образ жизни"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: шиншилла, характер: активный, низкий уровень звуков."
+    }
+  },
+  {
+    "rulename": "Guinea-pig",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "1000-5000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Спокойный"
+        },
+        {
+          "name": "habitat",
+          "value": "Клетка"
+        },
+        {
+          "name": "diet",
+          "value": "Травоядным"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: морская свинка, характер: спокойный, низкий уровень агрессии."
+    }
+  },
+  {
+    "rulename": "Hedgehog",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "1000-5000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Спокойный"
+        },
+        {
+          "name": "habitat",
+          "value": "Клетка"
+        },
+        {
+          "name": "diet",
+          "value": "Всеядным"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: ежик, характер: спокойный, гибкость в питании."
+    }
+  },
+  {
+    "rulename": "Turtle",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "1000-5000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Спокойный"
+        },
+        {
+          "name": "habitat",
+          "value": "Террариум"
+        },
+        {
+          "name": "adaptation",
+          "value": "Низкая адаптация"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: черепаха, характер: спокойный, медленный метаболизм."
+    }
+  },
+  {
+    "rulename": "Chameleon",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "1000-5000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Спокойный"
+        },
+        {
+          "name": "habitat",
+          "value": "Террариум"
+        },
+        {
+          "name": "adaptation",
+          "value": "Высокая адаптация"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: хамелеон, характер: спокойный, меняет цвет кожи."
+    }
+  },
+  {
+    "rulename": "Raccoon",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "5000-10000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Активный"
+        },
+        {
+          "name": "aspect",
+          "value": "Потребность в мобильности"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: енот, характер: активный, длина тела меньше 1,5 метра."
+    }
+  },
+  {
+    "rulename": "Iguana",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "5000-10000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Активный"
+        },
+        {
+          "name": "aspect",
+          "value": "Доступ к пище"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: игуана, характер: активный, длина тела больше 1,5 метра."
+    }
+  },
+  {
+    "rulename": "Tarantula-spider",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "5000-10000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Спокойный"
+        },
+        {
+          "name": "limbs",
+          "value":  "8 конечностей"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: паук-птицеед, характер: спокойный,адаптация к разнообразной деятельности."
+    }
+  },
+  {
+    "rulename": "Snake",
+    "question": "",
+    "priority": 0,
+    "value": [],
+    "condition": {
+      "operation": "&",
+      "facts": [
+        {
+          "name": "budget",
+          "value": "5000-10000 рублей"
+        },
+        {
+          "name": "temperament",
+          "value": "Спокойный"
+        },
+        {
+          "name": "limbs",
+          "value":"Отсутствие конечностей"
+        }
+      ]
+    },
+    "updateFact": {
+      "name": "pet",
+      "value": "Вид питомца: змея, характер: спокойный, уникальное разнообразное передвижение."
+    }
+  }
+]
